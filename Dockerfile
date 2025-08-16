@@ -15,6 +15,7 @@ COPY server server
 
 # Copy frontend build from build-frontend stage to backend public dir
 COPY --from=build-frontend /app/client/dist ./server/public
+
 RUN cd server && npm run migrate || true
 
 # ---------- Run image ----------
