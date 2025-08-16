@@ -13,8 +13,8 @@ COPY server/package*.json server/
 RUN cd server && npm ci
 COPY server server
 
-# copy frontend build into backend public dir
-RUN mkdir -p server/public && cp -r client/dist/* server/public/ || true
+# Copy frontend build from build-frontend stage to backend public dir
+COPY --from=build-frontend /app/client/dist ./server/public
 RUN cd server && npm run migrate || true
 
 # ---------- Run image ----------
